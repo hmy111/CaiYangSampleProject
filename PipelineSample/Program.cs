@@ -4,14 +4,14 @@ using PipelineSample;
 
 var requestContext = new RequestContext()
 {
-    RequesterName = "test",
+    RequestName = "test",
     Hour = 5,
 };
 
 var builder = PipelineBuilder<RequestContext>.New(context =>
     {
         // 兜底
-        Console.WriteLine($"{context.RequesterName} {context.Hour}h apply failed");
+        Console.WriteLine($"{context.RequestName} {context.Hour}h apply failed");
     })
     .Use(next => context =>
     {
@@ -59,9 +59,7 @@ funcs.Add(next => context => testFunc1(context, () => next(context)));
 
 public class RequestContext
 {
-    public string RequesterName { get; set; }
+    public string RequestName { get; set; } = string.Empty;
 
     public int Hour { get; set; }
-    
-    
 }
